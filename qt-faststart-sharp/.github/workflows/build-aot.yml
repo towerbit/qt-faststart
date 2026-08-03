@@ -1,0 +1,39 @@
+name: Build Native AOT
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            artifact: qt-faststart.exe
+          - os: ubuntu-latest
+            rid: linux-x64
+            artifact: qt-faststart
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish Native AOT (${{ matrix.rid }})
+        run: dotnet publish -r ${{ matrix.rid }} -c Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qt-faststart-${{ matrix.rid }}
+          path: bin/Release/net10.0/${{ matrix.rid }}/publish/${{ matrix.artifact }}

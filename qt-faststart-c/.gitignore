@@ -1,0 +1,15 @@
+build/
+out/
+.vs/
+.vscode/
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exe
+*.vcxproj.user
+*.VC.db
+*.opendb
+*.suo
+*.user
+*.sln.docstates

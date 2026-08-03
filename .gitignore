@@ -1,0 +1,22 @@
+# Build outputs
+build/
+out/
+bin/
+obj/
+
+# IDE / editor
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# MSVC / native build artifacts
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.VC.db
+*.opendb
