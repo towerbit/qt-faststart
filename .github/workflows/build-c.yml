@@ -13,7 +13,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            label: linux-x64
+          - os: ubuntu-24.04-arm
+            label: linux-arm64
+          - os: windows-latest
+            label: windows-x64
 
     defaults:
       run:
@@ -34,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: qt-faststart-c-${{ runner.os }}
+          name: qt-faststart-c-${{ matrix.label }}
           path: |
             qt-faststart-c/build/qt-faststart
             qt-faststart-c/build/Release/qt-faststart.exe

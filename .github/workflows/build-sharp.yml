@@ -18,6 +18,9 @@ jobs:
           - os: ubuntu-latest
             rid: linux-x64
             artifact: qt-faststart-sharp
+          - os: ubuntu-24.04-arm
+            rid: linux-arm64
+            artifact: qt-faststart-sharp
 
     runs-on: ${{ matrix.os }}
 
