@@ -11,11 +11,7 @@
 | [`qt-faststart-c`](qt-faststart-c) | C | 直接编译 FFmpeg 上游 `qt-faststart.c`，支持 CMake / MSVC |
 | [`qt-faststart-sharp`](qt-faststart-sharp) | C# (.NET 10) | 移植版实现，支持 Native AOT 编译为单文件可执行程序 |
 
-两者功能一致，用法相同：
-
-```bash
-qt-faststart <infile.mp4> <outfile.mp4>
-```
+两者功能一致，用法相同
 
 选择建议：只需要一个静态可执行文件、不想依赖 .NET 运行时，选 `qt-faststart-c`；
 偏好 C#/.NET 生态或需要跨平台维护同一份可读性更高的代码，选 `qt-faststart-sharp`
@@ -182,14 +178,14 @@ dotnet publish -r linux-x64 -c Release # Linux
 输出路径：
 
 ```text
-bin/Release/net10.0/<rid>/publish/qt-faststart.exe   # Windows
-bin/Release/net10.0/<rid>/publish/qt-faststart       # Linux
+bin/Release/net10.0/<rid>/publish/qt-faststart-sharp.exe   # Windows
+bin/Release/net10.0/<rid>/publish/qt-faststart-sharp       # Linux
 ```
 
 ### 用法
 
 ```text
-qt-faststart <infile.mov> <outfile.mov>
+qt-faststart-sharp <infile.mov> <outfile.mov>
 ```
 
 输入输出文件不能相同，否则会报错。也可以直接用 ffmpeg 的
