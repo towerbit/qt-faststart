@@ -14,10 +14,10 @@ jobs:
         include:
           - os: windows-latest
             rid: win-x64
-            artifact: qt-faststart.exe
+            artifact: qt-faststart-sharp.exe
           - os: ubuntu-latest
             rid: linux-x64
-            artifact: qt-faststart
+            artifact: qt-faststart-sharp
 
     runs-on: ${{ matrix.os }}
 
