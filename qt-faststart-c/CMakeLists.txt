@@ -22,6 +22,10 @@ if(WIN32)
     target_compile_definitions(qt-faststart PRIVATE _CRT_NONSTDC_NO_WARNINGS)
 else()
     target_compile_definitions(qt-faststart PRIVATE _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE)
+    # Statically link glibc so the binary carries no runtime dependency on the
+    # host's libc version, allowing it to run on older distros (e.g. Ubuntu
+    # 22, openEuler 22) than the one it was built on.
+    target_link_options(qt-faststart PRIVATE -static)
 endif()
 
 install(TARGETS qt-faststart RUNTIME DESTINATION bin)

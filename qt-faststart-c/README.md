@@ -113,6 +113,16 @@ The included GitHub Actions workflow builds:
 
 Build artifacts are uploaded automatically for each workflow run.
 
+## glibc compatibility on Linux
+
+The Linux build links statically (`-static`) instead of dynamically against
+glibc. This is a deliberate choice: CI builds run on the newest available
+runner image (e.g. Ubuntu 24.04, glibc 2.39), and a dynamically linked
+binary can refuse to run on older distros whose glibc predates the one it
+was built against. Static linking removes that dependency entirely, so the
+same binary works unmodified on older distros such as Ubuntu 22.04 or
+openEuler 22.03, regardless of which glibc version built it.
+
 ## License and copyright
 
 `qt-faststart.c` is an unmodified copy of FFmpeg's upstream
