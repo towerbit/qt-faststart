@@ -1,0 +1,43 @@
+name: build-sharp
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            artifact: qt-faststart.exe
+          - os: ubuntu-latest
+            rid: linux-x64
+            artifact: qt-faststart
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: qt-faststart-sharp
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish Native AOT (${{ matrix.rid }})
+        run: dotnet publish -r ${{ matrix.rid }} -c Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: qt-faststart-sharp-${{ matrix.rid }}
+          path: qt-faststart-sharp/bin/Release/net10.0/${{ matrix.rid }}/publish/${{ matrix.artifact }}
